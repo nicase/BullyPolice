@@ -10,9 +10,9 @@ a = Amazon('en')
 class Reddit:
 
     def tractar_comment (self, comment, paraulesClau):
-        self.tractar_text(comment.author.name, comment.body)
+        author = comment.author.name
+        text = comment.body
 
-    def tractar_text(self, author, text):
         descartar = True
         confidence = 0
         try:
@@ -45,13 +45,15 @@ class Reddit:
 	        "language": "en",
 	        "user": None,
 	        "data": text,
-            "index": confidence
+            "index": confidence,
+            "link": comment.submission.url
         }
         
         try:
             if not descartar:
                 res = Connection().getProfile(str(author))
-                if len(res.text) == 2:      
+                if len(res.text) == 2:   
+                    print(bullyData['link'])   
                     profileData = json.dumps(profileData)
                     res = Connection().newProfile(profileData)
                     res = json.loads(res.text)
