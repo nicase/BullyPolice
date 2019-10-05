@@ -3,6 +3,7 @@
   <div class="row text-center px-4 justify-content-center">
     <div *ngFor='let bully of bullies$' class="col-5 card mx-3 my-2">
       <h5 class="mb-3 mt-2"><b> {{ bully.user.name }} </b></h5>
+      <img src="../../../fotos/twitterLogo.jpg" style='position:absolute; top:0; left:0;' width='100' height='100' alt='twitterLogo' />
       <p> {{bully.data}} </p>
     </div>
   </div>
