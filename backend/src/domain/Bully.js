@@ -1,8 +1,9 @@
 
 class Bully {
   constructor(bullyData) {
-    console.log(bullyData);
-    if (!(bullyData.platform
+    if (!(
+      (bullyData.platform == 'tw' 
+      || bullyData.platform == 'rd')
       && bullyData.language
       && bullyData.user
       && bullyData.data)) {

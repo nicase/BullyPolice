@@ -1,8 +1,9 @@
 
 class Profile {
   constructor(profileData) {
-    console.log(profileData);
-    if (!(profileData.platform
+    if (!(
+      (profileData.platform == 'tw' 
+      || profileData.platform == 'rd')
       && profileData.name
       && profileData.link)) {
       throw new Error('ValidationError');

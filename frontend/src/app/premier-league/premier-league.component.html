@@ -1,0 +1,16 @@
+<h1 class="text-center pt-3">Premier League</h1>
+<div class="container">
+  <div class="row">
+    <div class="col pt-2">
+      <ul>
+        <li *ngFor='let match of matches$' class="card mb-3 text-center">
+          <p>Matchday: {{match.matchday}}</p>
+          <b class="mb-3">{{match.local}}  VS  {{match.visitor}}</b>
+          <p>Numerical Result:  {{match.gLocDec}}  -  {{match.gVisDec}}</p>
+          <p>Suggested Result:  <b>{{match.gLoc}}  -  {{match.gVis}}</b></p>
+          <p>Fiability: {{match.percent}}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

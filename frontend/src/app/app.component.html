@@ -1,0 +1,21 @@
+<div class="container-fluid bar">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center pt-2"> {{title}} </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-left">
+      <a href="latest" class="btn mb-2 mx-1"> Latest </a>
+      <a href="top" class="btn mb-2 mx-1"> Top </a>
+      <a href="twitter" class="btn mb-2 mx-1"> Twitter </a>
+      <a href="reddit" class="btn mb-2 mx-1"> Reddit </a>
+    </div>
+    <div class="col text-right">
+      <a *ngIf="ln == 'es'"  (click)='english()' class="btn mb-2 mx-1"> English </a>
+      <a *ngIf="ln == 'en'" (click)='spanish()' class="btn mb-2 mx-1"> Español </a>
+      <a href="about" class="btn mb-2 mx-1"> About </a>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
