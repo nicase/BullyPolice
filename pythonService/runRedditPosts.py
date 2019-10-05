@@ -1,4 +1,4 @@
-from Twitter import Twitter
+from Reddit import Reddit
 
 if __name__ == '__main__':
 
@@ -19,8 +19,7 @@ if __name__ == '__main__':
         paraulesclau[index] = p[:-1].lower()
         index += 1
 
-    #print(paraulesclau)
+    # print(paraulesclau)
 
-    #inicialitzem twitter
-    t = Twitter(paraulesclau)
-
+    #inicialitzem reddit
+    Reddit('posts', paraulesclau)
