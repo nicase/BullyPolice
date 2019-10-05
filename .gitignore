@@ -9,4 +9,4 @@ frontend/node_modules
 
 #pythonService
 pythonService/__pycache__
-credentials.json
+pythonService/credentials.json
