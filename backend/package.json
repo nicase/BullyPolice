@@ -24,7 +24,8 @@
     "pm2:docker": "pm2-docker",
     "pm2:runtime": "pm2-runtime",
     "ncu": "ncu",
-    "align": "npm remove --save anything && npm remove --save-dev whatever"
+    "align": "npm remove --save anything && npm remove --save-dev whatever",
+    "fixtures": "node src/ui/cli/applyFixtures.js"
   },
   "dependencies": {
     "@sentry/node": "^5.5.0",

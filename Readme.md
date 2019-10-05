@@ -1,6 +1,7 @@
 # Backend
 - nvm use
 - npm install
+- npm run fixtures
 - npm run dev
 
 # Frontend
