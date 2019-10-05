@@ -22,4 +22,4 @@ if __name__ == '__main__':
     # print(paraulesclau)
 
     #inicialitzem twitter
-    Twitter(paraulesclau)
+    Twitter(paraulesclau, 'es')

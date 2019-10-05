@@ -4,17 +4,22 @@ import requests
 from Amazon import Amazon
 from Connection import Connection
 
-#inicialitzem classes
-a = Amazon('es')
+a = Amazon('en')
 
 class Twitter:
-    
-    ACCESS_TOKEN = '1144234221281693696-sX4DUACdnW1jKQH0GauBSmK4sAwisA'
-    ACCESS_SECRET = 'BjaocHJIKIUymY9vAyMCmuuLD8lVnDsAuZG9aHEzSSD6x'
-    CONSUMER_KEY = 'bPn0ZD9PGHgV5mTMnfHBGLDtX'
-    CONSUMER_SECRET = 'e03zkx2SZIl0vyZrBn0Pp0gaUCW1xWjQ84vnmwW2KerXEwn8Ye'
 
-    def __init__(self, paraulesclau):
+    json_file = open("credentials.json", "r")
+    data = json.load(json_file)
+
+    ACCESS_TOKEN = data['ACCESS_TOKEN']
+    ACCESS_SECRET = data['ACCESS_SECRET']
+    CONSUMER_KEY = data['CONSUMER_KEY']
+    CONSUMER_SECRET = data['CONSUMER_SECRET']
+
+    def __init__(self, paraulesclau, l):
+    
+        #inicialitzem classes
+        a = Amazon(l)
 
         # Autorització
         auth = tweepy.OAuthHandler(self.CONSUMER_KEY, self.CONSUMER_SECRET)
