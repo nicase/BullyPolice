@@ -1,1 +1,10 @@
+#backend
+backend/.vscode
+backend/certs
+backend/docker
+backend/node_modules
+
+#frontend
+
+#pythonService
 pythonService/__pycache__

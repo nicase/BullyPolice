@@ -1,0 +1,61 @@
+{
+  "name": "nkm-pushserver",
+  "version": "1.1.0",
+  "description": "Nakima Push Notification microservice",
+  "keywords": [
+    "push",
+    "apn",
+    "firebase",
+    "mongodb"
+  ],
+  "author": "Nakima S.L.",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/nkm_solutions/nkm-pushserver"
+  },
+  "scripts": {
+    "start": "node ./src/httpServer.js",
+    "start:dev": "node ./src/httpServer.js",
+    "dev": "nodemon ./src/httpServer.js",
+    "dev:local": "DATABASE_URL=mongodb://localhost/mamut nodemon ./src/httpServer.js",
+    "test": "npm run eslint",
+    "eslint": "eslint *.js src/",
+    "pm2": "pm2",
+    "pm2:docker": "pm2-docker",
+    "pm2:runtime": "pm2-runtime",
+    "ncu": "ncu",
+    "align": "npm remove --save anything && npm remove --save-dev whatever"
+  },
+  "dependencies": {
+    "@sentry/node": "^5.5.0",
+    "apn": "^2.2.0",
+    "awilix": "^4.2.2",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "commander": "^2.20.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "emailjs": "^2.2.0",
+    "express": "^4.17.1",
+    "firebase-admin": "^8.2.0",
+    "handlebars": "^4.1.2",
+    "http-status": "^1.3.2",
+    "mailer": "^0.6.7",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.6.6",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
+    "pm2": "^3.5.1",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.2.1",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jasmine": "^2.10.1",
+    "nodemon": "^1.19.1",
+    "npm-check-updates": "^3.1.20"
+  }
+}
