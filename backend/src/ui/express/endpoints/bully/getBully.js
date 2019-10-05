@@ -9,7 +9,7 @@ module.exports = [
   (req, res, next) => {
     const getAllBullys = req.container.resolve('GetAllBullys');
     const { SUCCESS, ERROR } = getAllBullys.outputs;
-    const filter = req.query;
+    const filter = req.query || req.body;
 
     getAllBullys
       .on(SUCCESS, (bullys) => {

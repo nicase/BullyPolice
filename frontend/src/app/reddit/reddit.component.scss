@@ -1,5 +1,14 @@
 .card {
-    background-color: #FFFFFF;
-    border-radius: 0 !important;
-  }
+  background-color: #FFFFFF;
+  border-radius: 0 !important;
+}
 
+.card:hover {
+  background-color: #F5F8FA;
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
+.image{
+  border-radius: 50px;
+} 

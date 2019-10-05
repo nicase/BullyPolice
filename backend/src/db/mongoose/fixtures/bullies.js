@@ -9,7 +9,8 @@ module.exports = [
 	  language: "es",
 	  user: profiles[0]._id,
     data: "A diferencia de Benjamin Button el nunca ha sido guapo",
-    index: 0.5
+    index: 0.5,
+    link: "www.google.es"
   },
   {
     _id: id(),
@@ -17,7 +18,8 @@ module.exports = [
 	  language: "es",
 	  user: profiles[1]._id,
     data: "@Nicase99 tiene razon, pareces benjamin button pero en vez de hacerte viejo te haces feo",
-    index: 0.8
+    index: 0.8,
+    link: "www.google.es"
   },
   {
     _id: id(),
@@ -25,6 +27,7 @@ module.exports = [
 	  language: "es",
 	  user: profiles[0]._id,
     data: "Me cago en tus putos muertos @MarcAT eres super feo y tocas la guitarra que da pena, pero no tanto como tu vida miserable hijo de puta",
-    index: 0.99
+    index: 0.99,
+    link: "www.google.es"
   },
 ];

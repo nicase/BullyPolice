@@ -11,7 +11,7 @@ export class LatestComponent implements OnInit {
   bullies$: Object;
   ln = localStorage.getItem('language') || 'es';
   filter = {
-    language: localStorage.getItem('language'),
+    language: localStorage.getItem('language') || 'es',
   };
 
   constructor(private data: BulliesService) { }

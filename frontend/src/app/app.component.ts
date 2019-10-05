@@ -18,10 +18,16 @@ export class AppComponent {
   english() {
     localStorage.setItem('language', 'en');
     this.ln = localStorage.getItem('language');
+    this.refresh();
   }
 
   spanish() {
     localStorage.setItem('language', 'es');
     this.ln = localStorage.getItem('language');
+    this.refresh();
+  }
+
+  private refresh() {
+    location.reload()
   }
 }

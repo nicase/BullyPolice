@@ -7,7 +7,8 @@ class Bully {
       && bullyData.language
       && bullyData.user
       && bullyData.data
-      && bullyData.index)) {
+      && bullyData.index
+      && bullyData.link)) {
       throw new Error('ValidationError');
     }
     this.platform = bullyData.platform;
@@ -15,6 +16,7 @@ class Bully {
     this.user = bullyData.user;
     this.data = bullyData.data;
     this.index = bullyData.index;
+    this.link = bullyData.link;
 
     if (bullyData.id) {
       this.id = bullyData.id;

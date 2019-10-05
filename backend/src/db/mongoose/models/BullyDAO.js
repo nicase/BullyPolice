@@ -23,6 +23,10 @@ const bullySchema = new Schema({
   index: {
     type: Number,
     required: true
+  },
+  link: {
+    type: String,
+    required: true
   }
 }, {
   timestamps: true,

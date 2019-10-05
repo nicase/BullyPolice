@@ -17,7 +17,6 @@ export class TopComponent implements OnInit {
   constructor(private data: BulliesService) { }
 
   ngOnInit() {
-
     this.ln = localStorage.getItem('language') || 'es';  
 
     this.data.getBullies(this.filter).subscribe(
