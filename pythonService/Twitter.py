@@ -1,6 +1,10 @@
 import json
 import tweepy
 import requests
+from Amazon import Amazon
+
+#inicialitzem amazon
+a = Amazon()
 
 class Twitter:
     
@@ -9,14 +13,13 @@ class Twitter:
     CONSUMER_KEY = 'bPn0ZD9PGHgV5mTMnfHBGLDtX'
     CONSUMER_SECRET = 'e03zkx2SZIl0vyZrBn0Pp0gaUCW1xWjQ84vnmwW2KerXEwn8Ye'
 
-    def __init__(self):
+    def __init__(self, paraulesclau):
+
         # Autorització
         auth = tweepy.OAuthHandler(self.CONSUMER_KEY, self.CONSUMER_SECRET)
         auth.set_access_token(self.ACCESS_TOKEN, self.ACCESS_SECRET)
         
         api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True, compression=True)
-        
-        paraulesclau = ['hola']
 
         stream_listener = StreamListener()
         stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
@@ -31,5 +34,40 @@ class StreamListener(tweepy.StreamListener):
     if status_code == 420:
       return False
 
+def getText(tweet):
+    text = ""
+ 
+    if hasattr(tweet, "retweeted_status"): # Check if Retweet
+        try:
+            text = tweet.retweeted_status.extended_tweet["full_text"]
+        except AttributeError:
+            text = tweet.retweeted_status.text
+    else:
+        try:
+            text = tweet.extended_tweet["full_text"]
+        except AttributeError:
+            text = tweet.text
+    
+    return text.lower()
+
 def manage_tweet(tweet):
-    print(tweet.id)
+    filtre = ['soy', 'http', 'www', 'bit.ly']
+    
+    text = getText(tweet)            
+    
+    # si el tweet te un link el descartem
+    descartat = False
+
+    textSplit = text.split(' ')
+
+    for p in textSplit:
+        for f in filtre:
+            if p.startswith(f):
+                descartat = True
+
+    if not descartat and tweet.text[:2] != "RT":
+        sentiment = a.analyze(tweet.text)
+        print("---------------------------------------------")
+        print(sentiment['Sentiment'])
+        print(sentiment['SentimentScore']['Negative'])
+        print(tweet.text)
