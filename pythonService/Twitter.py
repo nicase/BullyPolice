@@ -87,7 +87,8 @@ def manage_tweet(tweet):
 	        "language": "es",
 	        "user": None,
 	        "data": getText(tweet),
-            "index": confidence
+            "index": confidence,
+            "link": "https://twitter.com/" + str(tweet.user.screen_name) + "/status/" + str(tweet.id)
         }
         
         if confidence > 0.95:
