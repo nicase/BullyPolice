@@ -65,9 +65,14 @@ def manage_tweet(tweet):
             if p.startswith(f):
                 descartat = True
 
+    if (not descartat):
+        print(text)
+
+'''
     if not descartat and tweet.text[:2] != "RT":
         sentiment = a.analyze(tweet.text)
         print("---------------------------------------------")
         print(sentiment['Sentiment'])
         print(sentiment['SentimentScore']['Negative'])
         print(tweet.text)
+'''
