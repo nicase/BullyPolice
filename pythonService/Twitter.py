@@ -2,8 +2,9 @@ import json
 import tweepy
 import requests
 from Amazon import Amazon
+from Connection import Connection
 
-#inicialitzem amazon
+#inicialitzem classes
 a = Amazon()
 
 class Twitter:
@@ -48,12 +49,12 @@ def getText(tweet):
         except AttributeError:
             text = tweet.text
     
-    return text.lower()
+    return text
 
 def manage_tweet(tweet):
     filtre = ['soy', 'http', 'www', 'bit.ly']
     
-    text = getText(tweet)            
+    text = getText(tweet).lower()           
     
     # si el tweet te un link el descartem
     descartat = False
@@ -65,14 +66,33 @@ def manage_tweet(tweet):
             if p.startswith(f):
                 descartat = True
 
-    if (not descartat):
-        print(text)
-
-'''
     if not descartat and tweet.text[:2] != "RT":
-        sentiment = a.analyze(tweet.text)
+        # sentiment = a.analyze(tweet.text)
         print("---------------------------------------------")
-        print(sentiment['Sentiment'])
-        print(sentiment['SentimentScore']['Negative'])
+        #print(sentiment['Sentiment'])
+        #print(sentiment['SentimentScore']['Negative'])
         print(tweet.text)
-'''
+
+        profileData = {
+            "platform": "tw",
+	        "name": str(tweet.user.screen_name),
+	        "link": "https://twitter.com/" + str(tweet.user.screen_name)
+        }
+
+        bullyData = {
+            "platform": "tw",
+	        "language": "es",
+	        "user": None,
+	        "data": getText(tweet),
+            "index": 0.2
+        }
+        
+        res = Connection().getProfile(str(tweet.user.screen_name))
+        if len(res.text) == 2:      
+            profileData = json.dumps(profileData)
+            res = Connection().newProfile(profileData)
+            res = json.loads(res.text)
+            print(profileData)
+            bullyData["user"]=res["id"]
+            bullyData = json.dumps(bullyData)
+            res = Connection().newBully(bullyData)

@@ -9,7 +9,7 @@ module.exports = [
   (req, res, next) => {
     const getAllProfiles = req.container.resolve('GetAllProfiles');
     const { SUCCESS, ERROR } = getAllProfiles.outputs;
-    const filter = req.body;
+    const filter = req.query;
 
     getAllProfiles
       .on(SUCCESS, (profiles) => {

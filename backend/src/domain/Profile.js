@@ -1,6 +1,7 @@
 
 class Profile {
   constructor(profileData) {
+    console.log(profileData)
     if (!(
       (profileData.platform == 'tw' 
       || profileData.platform == 'rd')
