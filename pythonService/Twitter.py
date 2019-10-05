@@ -5,7 +5,7 @@ from Amazon import Amazon
 from Connection import Connection
 
 #inicialitzem classes
-a = Amazon()
+a = Amazon('es')
 
 class Twitter:
     
@@ -67,12 +67,15 @@ def manage_tweet(tweet):
                 descartat = True
 
     if not descartat and tweet.text[:2] != "RT":
-        # sentiment = a.analyze(tweet.text)
+        sentiment = a.analyze(tweet.text)
+        confidence = sentiment['SentimentScore']['Negative']
+        '''
         print("---------------------------------------------")
-        #print(sentiment['Sentiment'])
-        #print(sentiment['SentimentScore']['Negative'])
-        print(tweet.text)
-
+        print(sentiment['Sentiment'])
+        print(sentiment['SentimentScore']['Negative'])
+        print(getText(tweet.text))
+        '''
+        
         profileData = {
             "platform": "tw",
 	        "name": str(tweet.user.screen_name),
@@ -84,15 +87,20 @@ def manage_tweet(tweet):
 	        "language": "es",
 	        "user": None,
 	        "data": getText(tweet),
-            "index": 0.2
+            "index": confidence
         }
         
-        res = Connection().getProfile(str(tweet.user.screen_name))
-        if len(res.text) == 2:      
-            profileData = json.dumps(profileData)
-            res = Connection().newProfile(profileData)
-            res = json.loads(res.text)
-            print(profileData)
-            bullyData["user"]=res["id"]
-            bullyData = json.dumps(bullyData)
-            res = Connection().newBully(bullyData)
+        if confidence > 0.95:
+            res = Connection().getProfile(str(tweet.user.screen_name))
+            if len(res.text) == 2:      
+                profileData = json.dumps(profileData)
+                res = Connection().newProfile(profileData)
+                res = json.loads(res.text)
+                bullyData["user"]=res["id"]
+                bullyData = json.dumps(bullyData)
+                res = Connection().newBully(bullyData)
+            else:
+                res = json.loads(res.text)
+                bullyData["user"]=res["id"]
+                bullyData = json.dumps(bullyData)
+                res = Connection().newBully(bullyData)
