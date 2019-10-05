@@ -20,7 +20,6 @@ class Twitter:
     
         #inicialitzem classes
         a = Amazon(l)
-
         # Autorització
         auth = tweepy.OAuthHandler(self.CONSUMER_KEY, self.CONSUMER_SECRET)
         auth.set_access_token(self.ACCESS_TOKEN, self.ACCESS_SECRET)
@@ -29,12 +28,13 @@ class Twitter:
 
         stream_listener = StreamListener()
         stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
-        stream.filter(track=paraulesclau, languages=["es"])
+        stream.filter(track=paraulesclau, languages=[l])
         
 class StreamListener(tweepy.StreamListener):
 
   def on_status(self, status):
     manage_tweet(status)
+
       
   def on_error(self, status_code):
     if status_code == 420:
@@ -72,15 +72,20 @@ def manage_tweet(tweet):
                 descartat = True
 
     if not descartat and tweet.text[:2] != "RT":
-        sentiment = a.analyze(tweet.text)
-        confidence = sentiment['SentimentScore']['Negative']
-        '''
-        print("---------------------------------------------")
-        print(sentiment['Sentiment'])
-        print(sentiment['SentimentScore']['Negative'])
-        print(getText(tweet.text))
-        '''
-        
+        confidence = 0
+        try:
+            sentiment = a.analyze(tweet.text)
+            confidence = sentiment['SentimentScore']['Negative']
+            '''
+            print("---------------------------------------------")
+            print(sentiment['Sentiment'])
+            print(sentiment['SentimentScore']['Negative'])
+            print(getText(tweet.text))
+            '''
+        except:
+            print("******************** Error amb amazon ********************")
+
+
         profileData = {
             "platform": "tw",
 	        "name": str(tweet.user.screen_name),
@@ -96,17 +101,22 @@ def manage_tweet(tweet):
             "link": "https://twitter.com/" + str(tweet.user.screen_name) + "/status/" + str(tweet.id)
         }
         
-        if confidence > 0.95:
-            res = Connection().getProfile(str(tweet.user.screen_name))
-            if len(res.text) == 2:      
-                profileData = json.dumps(profileData)
-                res = Connection().newProfile(profileData)
-                res = json.loads(res.text)
-                bullyData["user"]=res["id"]
-                bullyData = json.dumps(bullyData)
-                res = Connection().newBully(bullyData)
-            else:
-                res = json.loads(res.text)
-                bullyData["user"]=res["id"]
-                bullyData = json.dumps(bullyData)
-                res = Connection().newBully(bullyData)
+        print('.')
+        try:
+            if confidence > 0.95:
+                res = Connection().getProfile(str(tweet.user.screen_name))
+                if len(res.text) == 2:      
+                    print(getText(tweet))
+                    profileData = json.dumps(profileData)
+                    res = Connection().newProfile(profileData)
+                    res = json.loads(res.text)
+                    bullyData["user"]=res["id"]
+                    bullyData = json.dumps(bullyData)
+                    res = Connection().newBully(bullyData)
+                else:
+                    res = json.loads(res.text)
+                    bullyData["user"]=res["id"]
+                    bullyData = json.dumps(bullyData)
+                    res = Connection().newBully(bullyData)
+        except:
+            print("******************** Error fent post al backend ********************")

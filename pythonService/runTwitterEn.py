@@ -2,15 +2,28 @@ from Twitter import Twitter
 
 if __name__ == '__main__':
 
-    '''
-    index = 0
-    for p in paraulesclau:
-        paraulesclau[index] = p[:-1].lower()
-        index += 1
-    '''
+    f = open("dictionaries/englishInsults.txt", "r")
+    
+    paraulesclau = f.readlines()
 
-    # print(paraulesclau)
+    f.close()
+
+    f = open("dictionaries/topics.txt", "r")
+    
+    paraulesclau += f.readlines()
+
+    f.close()
+    
+    index = 0
+
+    paraulesEng = []
+    for p in paraulesclau:
+        if index % 4 == 0:
+            paraulesEng.append(p[:-1].lower())
+        index += 1
+
+    # print(len(paraulesEng))
+    # print(paraulesEng)
 
     #inicialitzem twitter
-    
-    Twitter([], 'en')
+    Twitter(paraulesEng, 'en')

@@ -48,12 +48,12 @@ class Reddit:
             "index": confidence,
             "link": comment.submission.url
         }
-        
+        print('.')
         try:
             if not descartar:
                 res = Connection().getProfile(str(author))
                 if len(res.text) == 2:   
-                    print(bullyData['link'])   
+                    print(text)
                     profileData = json.dumps(profileData)
                     res = Connection().newProfile(profileData)
                     res = json.loads(res.text)
@@ -65,7 +65,6 @@ class Reddit:
                     bullyData["user"]=res["id"]
                     bullyData = json.dumps(bullyData)
                     res = Connection().newBully(bullyData)
-                print(res)
         except:
             print('************* Error fent la petició a connection *************')
 
