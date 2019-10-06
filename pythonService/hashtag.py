@@ -148,6 +148,6 @@ def manage_tweet(self, tweet):
         print(body)
 
         try:
-            requests.post("http://localhost:3001/discover", data=body, headers= {'Content-Type': 'application/json'})
+            requests.post("http://localhost:3001/discover", data=json.dumps(body), headers= {'Content-Type': 'application/json'})
         except:
             print("***** Error fent post a la api *****")
