@@ -1,8 +1,13 @@
 <h1 class="text-center pt-3"> Twitter bullies </h1>
 <div class="container-fluid">
+  <div class="row text-center items-center">
+    <div class="col text-center">
+      <div class="lds-roller text-center my-4"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+  </div>
   <div class="row text-center px-4 justify-content-center">
     <div *ngFor='let bully of bullies$' class="col-5 card mx-3 my-2">
-      <a href="bully.link" class="text-right mt-2"><i class="fa fa-link"></i></a>
+      <a href="{{bully.link}}" target="blank"  class="text-right mt-2"><i class="fa fa-link"></i></a>
       <h5 class="mb-4"><b> {{ bully.user.name }} </b></h5>
       <img src="../../assets/fotos/twitterLogo2.png" style='position:absolute; top:5px; left:5px;' class="image" width='40' height='40' alt='twitterLogo' />
       <p class="mb-4"> {{bully.data}} </p>

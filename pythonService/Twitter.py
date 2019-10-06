@@ -17,7 +17,7 @@ class Twitter:
     CONSUMER_SECRET = data['CONSUMER_SECRET']
 
     def __init__(self, paraulesclau, l):
-    
+        
         #inicialitzem classes
         a = Amazon(l)
         # Autorització
@@ -27,18 +27,24 @@ class Twitter:
         api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True, compression=True)
 
         stream_listener = StreamListener()
+        stream_listener.setLang(l)
         stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
         stream.filter(track=paraulesclau, languages=[l])
         
 class StreamListener(tweepy.StreamListener):
 
-  def on_status(self, status):
-    manage_tweet(status)
+    language = ""
+
+    def setLang(self, l):
+        self.language = l
+
+    def on_status(self, status):
+        manage_tweet(self, status)
 
       
-  def on_error(self, status_code):
-    if status_code == 420:
-      return False
+    def on_error(self, status_code):
+        if status_code == 420:
+            return False
 
 def getText(tweet):
     text = ""
@@ -56,7 +62,7 @@ def getText(tweet):
     
     return text
 
-def manage_tweet(tweet):
+def manage_tweet(self, tweet):
     filtre = ['soy', 'http', 'www', 'bit.ly']
     
     text = getText(tweet).lower()           
@@ -88,13 +94,14 @@ def manage_tweet(tweet):
 
         profileData = {
             "platform": "tw",
+            "language": self.language,
 	        "name": str(tweet.user.screen_name),
 	        "link": "https://twitter.com/" + str(tweet.user.screen_name)
         }
 
         bullyData = {
             "platform": "tw",
-	        "language": "es",
+	        "language": self.language,
 	        "user": None,
 	        "data": getText(tweet),
             "index": confidence,
@@ -102,8 +109,10 @@ def manage_tweet(tweet):
         }
         
         print('.')
+        print(getText(tweet))
         try:
             if confidence > 0.95:
+                
                 res = Connection().getProfile(str(tweet.user.screen_name))
                 if len(res.text) == 2:      
                     print(getText(tweet))

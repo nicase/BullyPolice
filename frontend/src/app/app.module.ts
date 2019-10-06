@@ -17,6 +17,7 @@ import { TopComponent } from './top/top.component';
 import { TwitterComponent } from './twitter/twitter.component';
 import { RedditComponent } from './reddit/reddit.component';
 import { AboutComponent } from './about/about.component';
+import { DiscoverComponent } from './discover/discover.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AboutComponent } from './about/about.component';
     TopComponent,
     TwitterComponent,
     RedditComponent,
-    AboutComponent
+    AboutComponent,
+    DiscoverComponent
   ],
   imports: [
     BrowserModule,

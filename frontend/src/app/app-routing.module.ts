@@ -11,6 +11,7 @@ import { TopComponent } from './top/top.component';
 import { TwitterComponent } from './twitter/twitter.component';
 import { RedditComponent } from './reddit/reddit.component';
 import { AboutComponent } from './about/about.component';
+import { DiscoverComponent } from './discover/discover.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'info', pathMatch: 'full' },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'twitter', component: TwitterComponent },
   { path: 'reddit', component: RedditComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'discover', component: DiscoverComponent },
 ];
 
 @NgModule({

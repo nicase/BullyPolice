@@ -1,0 +1,65 @@
+<div *ngIf='!discovering' class="section">
+  <h1 class="text-center pt-3"> Discover! </h1>
+  <div class="container-fluid">
+    <div class="row text-center px-4 justify-content-center">
+      <div class="col-6 p-3 text-center">
+        <form #form="ngForm" (submit)="onSubmit(form)">
+          <div class="form-group mt-3 text-left">
+            <label class="form-control-label" for="discover"> Key word: </label>
+            <input type="text" class="form-input form-control" placeholder="What do you want to discover?" id="discover" name="discover" ngModel>
+          </div>
+          <div class="form-group mt-3 text-left">
+            <label class="form-control-label" for="ntweets"> Maximum of Tweets: </label>
+            <input type="number" class="form-input form-control" placeholder="Maximum tweets do you whant to analyze" id="ntweets" name="ntweets" ngModel>
+          </div>
+          <div class="form-group mt-3 text-left">
+            <label class="form-control-label" for="interested"> Type of Tweets you are interested in: </label>
+            <select name="interested" class="form-control" placeholder="Type of Tweets you are interested in" ngModel>
+              <option [value]="interest" *ngFor="let interest of interests">
+                {{ interest }}
+              </option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-light rounded m-2">Discover</button>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf='discovering' class="section">
+    <h1 class="text-center pt-3">Discovering {{title}}</h1>
+    <div class="container-fluid">
+      <div class="row text-center items-center">
+        <div class="col text-center">
+          <div *ngIf='!end' class="lds-roller text-center my-4"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf='fetchData' class="container-fluid">
+      <div class="row text-center px-4 justify-content-center">
+        <div class="col">
+          <p><b>Analized </b>{{fetchData.nTweetsAnalys}} of {{fetchData.nTweetsTotal}}</p>
+        </div>
+      </div>
+      <div class="row px-4">
+        <div class="col-6 text-center">
+          <p>Positive Tweets: {{fetchData.nPositive}}</p>
+          <p>Neutral Tweets: {{fetchData.nNeutral}}</p>
+          <p>Negative Tweets: {{fetchData.nNegative}}</p>
+        </div>
+        <div class="col6">
+          sdfdsaxd
+        </div>
+      </div>
+      <div class="row text-center px-4 justify-content-center">
+        <div *ngFor='let tweet of arrayTweets' class="col-5 card mx-3 my-2">
+          <a href="{{tweet.link}}" target="blank"  class="text-right mt-2"><i class="fa fa-link"></i></a>
+          <h5 class="mb-4"><b> {{ tweet.user }} </b></h5>
+          <img src="../../assets/fotos/twitterLogo2.png" style='position:absolute; top:5px; left:5px;' class="image" width='40' height='40' alt='twitterLogo' />
+          <p class="mb-4"> {{tweet.data}} </p>
+        </div>
+      </div>
+    </div>
+  </div>

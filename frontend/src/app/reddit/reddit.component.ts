@@ -23,5 +23,13 @@ export class RedditComponent implements OnInit {
     this.data.getBullies(this.filter).subscribe(
       data => this.bullies$ = data
     );
+
+    setInterval(() => {
+      this.data.getBullies(this.filter).subscribe(
+        data => {
+          this.bullies$ = data
+        }
+      );
+    },2500)
   }
 }

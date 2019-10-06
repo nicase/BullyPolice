@@ -17,6 +17,10 @@ const getBullys = require('./endpoints/bully/getBully');
 const createProfile = require('./endpoints/profile/createProfile');
 const getProfiles = require('./endpoints/profile/getProfile');
 
+const startDiscover = require('./endpoints/discover/startDiscover');
+const recieveDiscover = require('./endpoints/discover/recieveDiscover');
+const getAllDiscovers = require('./endpoints/discover/getAllDiscovers');
+
 const router = Router();
 
 router.post('/auth/signup', signUp);
@@ -34,6 +38,11 @@ router.get('/bully', getBullys);
 
 router.post('/profile', createProfile);
 router.get('/profile', getProfiles);
+
+router.post('/startDiscover', startDiscover);
+router.post('/discover', recieveDiscover);
+router.get('/discover', getAllDiscovers);
+
 
 router.get('/status', (req, res) => res.status(Status.OK).json({ status: 'OK' }));
 

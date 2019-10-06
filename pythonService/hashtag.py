@@ -29,12 +29,16 @@ class Hashtag:
         stream_listener = StreamListener()
         stream_listener.setData(d)
         stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
-        stream.filter(track=d["discover"], languages=['en'])
+
+        paraulesclau = [str(d["discover"])]
+
+        stream.filter(track=paraulesclau, languages=['en'])
         
 class StreamListener(tweepy.StreamListener):
 
     tweetsArray = []
     tweetsTextArray = []
+
     ntweets = 0
     counter = 0
     positive = 0
@@ -72,22 +76,6 @@ def getText(tweet):
     
     return text
 
-def getText(tweet):
-    text = ""
- 
-    if hasattr(tweet, "retweeted_status"): # Check if Retweet
-        try:
-            text = tweet.retweeted_status.extended_tweet["full_text"]
-        except AttributeError:
-            text = tweet.retweeted_status.text
-    else:
-        try:
-            text = tweet.extended_tweet["full_text"]
-        except AttributeError:
-            text = tweet.text
-    
-    return text
-
 def getTweet (tweet):
     body = {
         "user": tweet.user.screen_name,
@@ -97,31 +85,41 @@ def getTweet (tweet):
     return body
 
 def manage_tweet(self, tweet):
-    
+
+
+    print(getText(tweet))
     text = getText(tweet).lower()
 
     self.tweetsTextArray.append(text)
     self.tweetsArray.append(tweet)
 
     self.counter += 1
+
     if len(self.tweetsTextArray) == 25:
-        res = a.analyzeBatch(self.tweetsTextArray)
-        
+        res = {}
+        try:
+            res = a.analyzeBatch(self.tweetsTextArray)
+        except:
+            print("***** Error amb amazon *****")
+
         interestedTweets = []
 
         for x in res["ResultList"]:
             if x["Sentiment"] == "POSITIVE":
                 self.positive += 1
-                if self.interested == "POSITIVE":
-                    interestedTweets.append(getTweet(self.tweetsArray[x["Index"]]))
             elif x["Sentiment"] == "NEGATIVE":
                 self.negative += 1
-                if self.interested == "NEGATIVE":
-                    interestedTweets.append(getTweet(self.tweetsArray[x["Index"]]))
             elif x["Sentiment"] == "NEUTRAL":
                 self.neutral += 1
-                if self.interested == "NEUTRAL":
-                    interestedTweets.append(getTweet(self.tweetsArray[x["Index"]]))
+
+            print(self.negative)
+
+            if self.interested == "POSITIVE" and x["Sentiment"] == "POSITIVE":
+                interestedTweets.append(getTweet(self.tweetsArray[x["Index"]]))
+            elif self.interested == "NEUTRAL" and x["Sentiment"] == "NEUTRAL":
+                interestedTweets.append(getTweet(self.tweetsArray[x["Index"]]))
+            elif self.interested == "NEGATIVE" and x["Sentiment"] == "NEGATIVE":
+                interestedTweets.append(getTweet(self.tweetsArray[x["Index"]]))
 
         body = {
             "nTweetsTotal": self.ntweets,
@@ -134,6 +132,11 @@ def manage_tweet(self, tweet):
 
         self.tweetsArray = []
         self.tweetsTextArray = []
-        print(body)
-        requests.post("http://localhost:3001/discover", data=body, headers= {'Content-Type': 'application/json'})
         
+        print("n total neg: ")
+        print(body)
+
+        try:
+            requests.post("http://localhost:3001/discover", data=json.dumps(body), headers= {'Content-Type': 'application/json'})
+        except:
+            print("***** Error fent post a la api *****")
