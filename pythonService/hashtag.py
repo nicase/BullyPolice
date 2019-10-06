@@ -29,7 +29,10 @@ class Hashtag:
         stream_listener = StreamListener()
         stream_listener.setData(d)
         stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
-        stream.filter(track=d["discover"], languages=['en'])
+
+        paraulesclau = [str(d["discover"])]
+
+        stream.filter(track=paraulesclau, languages=['en'])
         
 class StreamListener(tweepy.StreamListener):
 
@@ -73,22 +76,6 @@ def getText(tweet):
     
     return text
 
-def getText(tweet):
-    text = ""
- 
-    if hasattr(tweet, "retweeted_status"): # Check if Retweet
-        try:
-            text = tweet.retweeted_status.extended_tweet["full_text"]
-        except AttributeError:
-            text = tweet.retweeted_status.text
-    else:
-        try:
-            text = tweet.extended_tweet["full_text"]
-        except AttributeError:
-            text = tweet.text
-    
-    return text
-
 def getTweet (tweet):
     body = {
         "user": tweet.user.screen_name,
@@ -98,7 +85,9 @@ def getTweet (tweet):
     return body
 
 def manage_tweet(self, tweet):
-    
+
+
+    print(getText(tweet))
     text = getText(tweet).lower()
 
     self.tweetsTextArray.append(text)
