@@ -17,3 +17,8 @@ class Amazon:
     def analyze (self, text):
         sentiment = self.comprehend.detect_sentiment(Text=text, LanguageCode=self.lang)
         return sentiment
+
+    def analyzeBatch (self, arrayTweets):
+        sentiment = self.comprehend.batch_detect_sentiment(TextList=arrayTweets, 
+        LanguageCode=self.lang)
+        return sentiment

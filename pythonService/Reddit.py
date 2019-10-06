@@ -48,7 +48,6 @@ class Reddit:
             "index": confidence,
             "link": comment.submission.url
         }
-        print('.')
         try:
             if not descartar:
                 res = Connection().getProfile(str(author))
