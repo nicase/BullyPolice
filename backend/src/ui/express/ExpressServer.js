@@ -60,7 +60,7 @@ class ExpressServer {
     this.express.enable('trust proxy');
 
     this.express.use((req, res, next) => {
-      res.setHeader('X-Powered-By', 'Nakima S.L.');
+      res.setHeader('X-Powered-By', 'birra4life');
       next();
     });
 

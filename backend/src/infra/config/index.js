@@ -41,9 +41,9 @@ const config = {
     host: process.env.MAILER_HOST || 'smtp.gmail.com',
     port: process.env.MAILER_PORT || 465,
     secure: true,
-    user: process.env.MAILER_USER || 'test.nakima',
-    password: process.env.MAILER_PASSWORD || 'nakima2015',
-    from: process.env.MAILER_FROM || 'test.nakima@gmail.com',
+    user: process.env.MAILER_USER || 'user',
+    password: process.env.MAILER_PASSWORD || 'password',
+    from: process.env.MAILER_FROM || 'test@gmail.com',
   },
   server: {
     port: process.env.PORT || '3001',

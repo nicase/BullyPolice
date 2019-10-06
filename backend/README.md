@@ -1,6 +1,4 @@
-# Nakima Push microservice
 
-	
 ## Dev env
 
 #### Docker:
