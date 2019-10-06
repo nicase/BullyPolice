@@ -18,10 +18,19 @@ export class TwitterComponent implements OnInit {
   constructor(private data: BulliesService) { }
 
   ngOnInit() {
+    console.log(localStorage.getItem('language'))
     this.ln = localStorage.getItem('language') || 'es';
 
     this.data.getBullies(this.filter).subscribe(
       data => this.bullies$ = data
     );
+
+    setInterval(() => {
+      this.data.getBullies(this.filter).subscribe(
+        data => {
+          this.bullies$ = data
+        }
+      );
+    },2500)
   }
 }

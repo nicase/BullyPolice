@@ -1,7 +1,6 @@
 
 class Match {
   constructor(matchData) {
-    console.log(matchData);
     if (!(matchData.league
       && matchData.matchday
       && matchData.local

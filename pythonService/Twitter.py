@@ -35,17 +35,16 @@ class StreamListener(tweepy.StreamListener):
 
     language = ""
 
-    def setLang(l):
+    def setLang(self, l):
         self.language = l
 
     def on_status(self, status):
-        manage_tweet(status)
+        manage_tweet(self, status)
 
       
     def on_error(self, status_code):
         if status_code == 420:
-        return False
-
+            return False
 
 def getText(tweet):
     text = ""
@@ -63,7 +62,7 @@ def getText(tweet):
     
     return text
 
-def manage_tweet(tweet):
+def manage_tweet(self, tweet):
     filtre = ['soy', 'http', 'www', 'bit.ly']
     
     text = getText(tweet).lower()           
@@ -95,6 +94,7 @@ def manage_tweet(tweet):
 
         profileData = {
             "platform": "tw",
+            "language": self.language,
 	        "name": str(tweet.user.screen_name),
 	        "link": "https://twitter.com/" + str(tweet.user.screen_name)
         }
