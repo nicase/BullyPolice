@@ -147,10 +147,7 @@ def manage_tweet(self, tweet):
         print("n total neg: ")
         print(body)
 
-
-        '''
         try:
             requests.post("http://localhost:3001/discover", data=body, headers= {'Content-Type': 'application/json'})
         except:
             print("***** Error fent post a la api *****")
-        '''
