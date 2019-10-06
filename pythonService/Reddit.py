@@ -46,9 +46,11 @@ class Reddit:
 	        "user": None,
 	        "data": text,
             "index": confidence,
-            "link": comment.submission.url
+            "link": "https://www.reddit.com" + comment.permalink
         }
-        
+
+        print (bullyData)
+
         try:
             if not descartar:
                 res = Connection().getProfile(str(author))
