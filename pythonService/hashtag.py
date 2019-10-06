@@ -30,7 +30,9 @@ class Hashtag:
         stream_listener.setData(d)
         stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
 
-        paraulesclau = [str(d["discover"])]
+        paraulesclau = d["discover"].split(' ')
+        for x in paraulesclau:
+            x = str(x).lower()
 
         stream.filter(track=paraulesclau, languages=['en'])
         
@@ -95,7 +97,7 @@ def manage_tweet(self, tweet):
 
     self.counter += 1
 
-    if len(self.tweetsTextArray) == 25:
+    if len(self.tweetsTextArray) == 10 or len(self.tweetsTextArray) == self.ntweets:
         res = {}
         try:
             res = a.analyzeBatch(self.tweetsTextArray)
@@ -112,7 +114,7 @@ def manage_tweet(self, tweet):
             elif x["Sentiment"] == "NEUTRAL":
                 self.neutral += 1
 
-            print(self.negative)
+            print(self.interested)
 
             if self.interested == "POSITIVE" and x["Sentiment"] == "POSITIVE":
                 interestedTweets.append(getTweet(self.tweetsArray[x["Index"]]))

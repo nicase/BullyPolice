@@ -34,8 +34,9 @@ export class DiscoverComponent implements OnInit {
         this.discovering = true;
         this.end = false;
         setTimeout(() => {
+          console.log('start')
           this.discover();
-        }, 5000);
+        }, 10000);
       })
       .catch(err => {
       })
@@ -45,6 +46,7 @@ export class DiscoverComponent implements OnInit {
     this.interval = setInterval(() => {
       this.data.fetchData().subscribe(
         data => {
+          console.log(data[0])
           if (data[0]) {
             this.fetchData = data[0];
             this.arrayTweets = data[0].tweetsInterest.concat(this.arrayTweets);
@@ -55,6 +57,6 @@ export class DiscoverComponent implements OnInit {
           }
         }
       );
-    },1000)
+    },2000)
   }
 }
