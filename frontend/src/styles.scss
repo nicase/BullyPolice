@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Notable&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css?family=DM+Sans&display=swap');
 
 body {
     background-color: #E6ECF0;
@@ -7,4 +9,9 @@ body {
 
 .titlefont {
     // font-family: 'Notable', sans-serif;
+    margin-top: 20px;
+    // font-family: 'Anton', sans-serif;
+    //font-family: 'DM Sans', sans-serif;
+    font-size: 300%;
+    color: white;
 }
