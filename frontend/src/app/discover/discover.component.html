@@ -1,5 +1,7 @@
 <div *ngIf='!discovering' class="section">
   <h1 class="text-center pt-3"> Discover! </h1>
+  <p class="text-right mr-3">Avaliable Discoveries: {{numD}}</p>
+  <p *ngIf='problem' class="text-right mr-3 danger">{{problem}}</p>
   <div class="container-fluid">
     <div class="row text-center px-4 justify-content-center">
       <div class="col-6 p-3 text-center">

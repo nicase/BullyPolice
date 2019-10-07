@@ -16,9 +16,15 @@ export class LoginService {
     return this.http.post(environment.apiURL + '/auth/login', body).pipe(
       map((res: any) => {
         localStorage.setItem('token', res.token);
+        localStorage.setItem('id', res.user.id);
         return res;
       })
     );
+  }
+
+  isAuthenticated(): boolean {
+    console.log(3456)
+    return !!localStorage.getItem('token');
   }
 
   status(){

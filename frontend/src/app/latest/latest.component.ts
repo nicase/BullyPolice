@@ -9,15 +9,16 @@ import { BulliesService } from '../bullies.service';
 export class LatestComponent implements OnInit {
 
   bullies$: Object;
-  ln = localStorage.getItem('language') || 'es';
+  ln = localStorage.getItem('language') || 'en';
   filter = {
-    language: localStorage.getItem('language') || 'es',
+    language: localStorage.getItem('language') || 'en',
   };
 
   constructor(private data: BulliesService) { }
 
   ngOnInit() {
-    this.ln = localStorage.getItem('language') || 'es';
+    this.ln = localStorage.getItem('language') || 'en';
+    localStorage.clear();
 
     this.data.getBullies(this.filter).subscribe(
       data => this.bullies$ = data

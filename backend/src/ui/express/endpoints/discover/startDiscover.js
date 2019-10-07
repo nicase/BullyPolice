@@ -1,9 +1,9 @@
 const Status = require('http-status');
 
-// const { checkUserAuthenticated, userIsAdmin } = require('../../../middlewares');
+const { checkUserAuthenticated } = require('../../middlewares');
 
 module.exports = [
-  // checkUserAuthenticated,
+  checkUserAuthenticated,
   // userIsAdmin,
   (req, res, next) => {
     const startDiscover = req.container.resolve('StartDiscover');

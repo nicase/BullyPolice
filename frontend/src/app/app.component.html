@@ -12,8 +12,9 @@
       <a href="discover" class="btn mb-2 mx-1"> Discover </a>
     </div>
     <div class="col text-right">
-      <a *ngIf="ln == 'es'"  (click)='english()' class="btn mb-2 mx-1"> English </a>
-      <a *ngIf="ln == 'en'" (click)='spanish()' class="btn mb-2 mx-1"> Español </a>
+      <!-- <a *ngIf="ln == 'es'"  (click)='english()' class="btn mb-2 mx-1"> English </a>
+      <a *ngIf="ln == 'en'" (click)='spanish()' class="btn mb-2 mx-1"> Español </a> -->
+      <a *ngIf='logged' href="latest" (click)='logout()' class="btn mb-2 mx-1"> Log Out </a>
       <a href="about" class="btn mb-2 mx-1"> About </a>
     </div>
   </div>

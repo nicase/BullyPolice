@@ -6,12 +6,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Bullying Police';
-  ln = localStorage.getItem('language') || 'es';
+  ln = localStorage.getItem('language') || 'en';
+  logged = !!localStorage.getItem('token');
 
 
   logout(){
     localStorage.clear();
-    window.location.href='/login';
+    window.location.href='/latest';
   }
 
   english() {
