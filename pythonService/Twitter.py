@@ -109,13 +109,12 @@ def manage_tweet(self, tweet):
         }
         
         print('.')
-        print(getText(tweet))
         try:
             if confidence > 0.95:
+                print(getText(tweet))
                 
                 res = Connection().getProfile(str(tweet.user.screen_name))
                 if len(res.text) == 2:      
-                    print(getText(tweet))
                     profileData = json.dumps(profileData)
                     res = Connection().newProfile(profileData)
                     res = json.loads(res.text)

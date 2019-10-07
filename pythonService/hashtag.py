@@ -3,43 +3,14 @@ import tweepy
 import requests
 from Amazon import Amazon
 from Connection import Connection
+import sys
+import os
 
-a = Amazon('en')
-
-class Hashtag:
-
-    json_file = open("credentials.json", "r")
-    data = json.load(json_file)
-
-    ACCESS_TOKEN = data['ACCESS_TOKEN']
-    ACCESS_SECRET = data['ACCESS_SECRET']
-    CONSUMER_KEY = data['CONSUMER_KEY']
-    CONSUMER_SECRET = data['CONSUMER_SECRET']
-
-    def __init__(self, d):
-        
-        #inicialitzem classes
-        a = Amazon('en')
-        # Autorització
-        auth = tweepy.OAuthHandler(self.CONSUMER_KEY, self.CONSUMER_SECRET)
-        auth.set_access_token(self.ACCESS_TOKEN, self.ACCESS_SECRET)
-        
-        api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True, compression=True)
-
-        stream_listener = StreamListener()
-        stream_listener.setData(d)
-        stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
-
-        paraulesclau = d["discover"].split(' ')
-        for x in paraulesclau:
-            x = str(x).lower()
-
-        stream.filter(track=paraulesclau, languages=['en'])
-        
 class StreamListener(tweepy.StreamListener):
 
     tweetsArray = []
     tweetsTextArray = []
+    interestedTweets = []
 
     ntweets = 0
     counter = 0
@@ -48,15 +19,17 @@ class StreamListener(tweepy.StreamListener):
     neutral = 0
     interested = ""
 
-    def setData (self, varData):
-        self.interested = varData["interested"]
-        self.ntweets = varData["ntweets"]
+    def destroy_process(self):
+        print('close process')
+        sys.exit()
+
+    def setData (self):
+        self.interested = sys.argv[3]
+        self.ntweets = sys.argv[2]
 
     def on_status(self, status):
         manage_tweet(self, status)
-        if self.counter == self.ntweets:
-            return False
-
+        # print("counter: " + str(self.counter) + " ntweets: " + str(self.ntweets))
         
     def on_error(self, status_code):
         if status_code == 420:
@@ -88,8 +61,6 @@ def getTweet (tweet):
 
 def manage_tweet(self, tweet):
 
-
-    print(getText(tweet))
     text = getText(tweet).lower()
 
     self.tweetsTextArray.append(text)
@@ -97,14 +68,14 @@ def manage_tweet(self, tweet):
 
     self.counter += 1
 
-    if len(self.tweetsTextArray) == 10 or len(self.tweetsTextArray) == self.ntweets:
+    print('.')
+
+    if len(self.tweetsTextArray) == 25 or len(self.tweetsTextArray) == self.ntweets:
         res = {}
         try:
             res = a.analyzeBatch(self.tweetsTextArray)
         except:
             print("***** Error amb amazon *****")
-
-        interestedTweets = []
 
         for x in res["ResultList"]:
             if x["Sentiment"] == "POSITIVE":
@@ -114,14 +85,17 @@ def manage_tweet(self, tweet):
             elif x["Sentiment"] == "NEUTRAL":
                 self.neutral += 1
 
-            print(self.interested)
-
             if self.interested == "POSITIVE" and x["Sentiment"] == "POSITIVE":
-                interestedTweets.append(getTweet(self.tweetsArray[x["Index"]]))
+                self.interestedTweets.append(getTweet(self.tweetsArray[x["Index"]]))
             elif self.interested == "NEUTRAL" and x["Sentiment"] == "NEUTRAL":
-                interestedTweets.append(getTweet(self.tweetsArray[x["Index"]]))
+                self.interestedTweets.append(getTweet(self.tweetsArray[x["Index"]]))
             elif self.interested == "NEGATIVE" and x["Sentiment"] == "NEGATIVE":
-                interestedTweets.append(getTweet(self.tweetsArray[x["Index"]]))
+                self.interestedTweets.append(getTweet(self.tweetsArray[x["Index"]]))
+        
+        self.tweetsArray = []
+        self.tweetsTextArray = []
+    
+    if str(self.counter) == str(self.ntweets):
 
         body = {
             "nTweetsTotal": self.ntweets,
@@ -129,16 +103,44 @@ def manage_tweet(self, tweet):
             "nPositive": self.positive,
             "nNeutral": self.neutral,
             "nNegative": self.negative,
-            "tweetsInterest": interestedTweets
+            "tweetsInterest": self.interestedTweets
         }
 
-        self.tweetsArray = []
-        self.tweetsTextArray = []
-        
         print("n total neg: ")
         print(body)
-
+        
         try:
             requests.post("http://localhost:3001/discover", data=json.dumps(body), headers= {'Content-Type': 'application/json'})
         except:
             print("***** Error fent post a la api *****")
+
+        self.destroy_process()
+      
+
+if __name__ == '__main__':
+    a = Amazon('en')
+
+    json_file = open("credentials.json", "r")
+    data = json.load(json_file)
+
+    ACCESS_TOKEN = data['ACCESS_TOKEN']
+    ACCESS_SECRET = data['ACCESS_SECRET']
+    CONSUMER_KEY = data['CONSUMER_KEY']
+    CONSUMER_SECRET = data['CONSUMER_SECRET']
+
+    # Autorització
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
+
+    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True, compression=True)
+
+    stream_listener = StreamListener()
+    stream_listener.setData()
+    stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
+
+    paraulesclau = sys.argv[1]
+    for x in paraulesclau:
+        x = str(x).lower()
+
+    stream.filter(track=paraulesclau, languages=['en'])
+
