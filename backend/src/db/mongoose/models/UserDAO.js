@@ -15,6 +15,10 @@ const userSchema = new Schema({
     required: true,
     lowercase: true,
   },
+  discover: {
+    type: Number,
+    requires: true
+  },
   role: {
     type: String,
     values: ['basic', 'admin'],

@@ -1,14 +1,14 @@
 {
   "name": "nkm-pushserver",
   "version": "1.1.0",
-  "description": "Nakima Push Notification microservice",
+  "description": " Push Notification microservice",
   "keywords": [
     "push",
     "apn",
     "firebase",
     "mongodb"
   ],
-  "author": "Nakima S.L.",
+  "author": "",
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/nkm_solutions/nkm-pushserver"

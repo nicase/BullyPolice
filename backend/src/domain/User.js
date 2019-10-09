@@ -18,8 +18,8 @@ class User {
     this.firstName = userData.firstName;
     this.lastName = userData.lastName;
     this.role = userData.role;
+    this.discover = userData.discover || 0;
     this.isMatched = userData.isMatched || false;
-    this.avatar = userData.avatar || undefined;
 
     if (userData.id) {
       this.id = userData.id;

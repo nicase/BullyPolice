@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     this.service.confirmLogin(form.value).toPromise()
       .then (res => {
         this.toastr.success('Hello' + res.user.firstName + ' ' + res.user.lastName)
-        window.location.href='/info';
+        window.location.href='/discover';
       })
       .catch(err => {
         this.toastr.error('Error')

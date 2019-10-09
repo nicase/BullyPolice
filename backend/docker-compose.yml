@@ -7,7 +7,7 @@ services:
       dockerfile: ./docker/dev.Dockerfile
     env_file:
       - ./.env
-    image: nakima/push-server:dev
+    image: 
     restart: on-failure
     depends_on:
       - mongodb
