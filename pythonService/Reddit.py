@@ -4,10 +4,14 @@ import requests.auth
 from Amazon import Amazon
 from Connection import Connection
 import json
+import os
 
 a = Amazon('en')
 
 class Reddit:
+
+    counter = 0
+    ntweets = 25
 
     def tractar_comment (self, comment, paraulesClau):
         author = comment.author.name
@@ -15,14 +19,12 @@ class Reddit:
 
         descartar = True
         confidence = 0
+        print('.')
         try:
             res = a.analyze(text)
-            print('.')
             confidence = res['SentimentScore']['Negative'] 
             if confidence > 0.95:
                 descartar = False
-                print(text)
-                print("------------------------------------")
         except:
             print('************* Error fent la petició a amazon *************')
 
@@ -49,10 +51,9 @@ class Reddit:
             "link": "https://www.reddit.com" + comment.permalink
         }
 
-        print (bullyData)
-
         try:
             if not descartar:
+                self.counter += 1
                 res = Connection().getProfile(str(author))
                 if len(res.text) == 2:   
                     print(text)
@@ -76,4 +77,7 @@ class Reddit:
                      user_agent='python:mamuthack/1.0.0 by atmarc99')
 
         for comment in r.subreddit('all').stream.comments():
-            self.tractar_comment(comment, paraulesClau)
+            if self.counter < self.ntweets:
+                self.tractar_comment(comment, paraulesClau)
+            else:
+                os.exit()

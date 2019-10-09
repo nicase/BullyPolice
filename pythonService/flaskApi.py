@@ -15,7 +15,7 @@ def index():
     print('Petició')
     newpid = os.fork()
     if newpid == 0:
-        subprocess.run(["python3", "hashtag.py", str(word), str(ntweets), str(interested)])
+        subprocess.run(["python3", "discovery.py", str(word), str(ntweets), str(interested)])
         os.exit()
 
     print("procés està viu")

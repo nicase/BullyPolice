@@ -3,6 +3,7 @@ import tweepy
 import requests
 from Amazon import Amazon
 from Connection import Connection
+import os
 
 a = Amazon('en')
 
@@ -34,13 +35,18 @@ class Twitter:
 class StreamListener(tweepy.StreamListener):
 
     language = ""
+    
+    counter = 0
+    ntweets = 25
 
     def setLang(self, l):
         self.language = l
 
     def on_status(self, status):
-        manage_tweet(self, status)
-
+        if self.counter < self.ntweets:
+            manage_tweet(self, status)
+        else:
+            os.exit()
       
     def on_error(self, status_code):
         if status_code == 420:
@@ -78,16 +84,11 @@ def manage_tweet(self, tweet):
                 descartat = True
 
     if not descartat and tweet.text[:2] != "RT":
+        self.counter += 1
         confidence = 0
         try:
             sentiment = a.analyze(tweet.text)
             confidence = sentiment['SentimentScore']['Negative']
-            '''
-            print("---------------------------------------------")
-            print(sentiment['Sentiment'])
-            print(sentiment['SentimentScore']['Negative'])
-            print(getText(tweet.text))
-            '''
         except:
             print("******************** Error amb amazon ********************")
 
