@@ -11,3 +11,6 @@
 
 # Python
 - python3 main.py
+
+Signals:
+https://stackabuse.com/handling-unix-signals-in-python/
