@@ -139,7 +139,7 @@ if __name__ == '__main__':
     stream_listener.setData()
     stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
 
-    paraulesclau = sys.argv[1]
+    paraulesclau = [sys.argv[1]]
     for x in paraulesclau:
         x = str(x).lower()
 

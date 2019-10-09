@@ -1,7 +1,7 @@
 <div *ngIf='!discovering' class="section">
   <h1 class="text-center pt-3"> Discover! </h1>
   <p class="text-right mr-3">Avaliable Discoveries: {{numD}}</p>
-  <p *ngIf='problem' class="text-right mr-3 danger">{{problem}}</p>
+  <p *ngIf='problem' class="text-right mr-3 text-danger">{{problem}}</p>
   <div class="container-fluid">
     <div class="row text-center px-4 justify-content-center">
       <div class="col-6 p-3 text-center">
@@ -36,6 +36,7 @@
       <div class="row text-center items-center">
         <div class="col text-center">
           <div *ngIf='!end' class="lds-roller text-center my-4"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+          <p class="text-danger">{{problemTweet}}</p>
         </div>
       </div>
     </div>

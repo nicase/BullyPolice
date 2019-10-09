@@ -19,11 +19,13 @@ export class DiscoverComponent implements OnInit {
 
   user: String;
   numD: any;
+  resp: any;
 
   fetchData;
   interval;
   arrayTweets = [];
   problem;
+  problemTweet;
 
   constructor(private data: DiscoverService) { }
 
@@ -39,16 +41,14 @@ export class DiscoverComponent implements OnInit {
     this.title = form.value.discover;
     this.data.startDiscover(form.value, this.user).toPromise()
       .then (resp => {
-        if (resp.status) {
-          this.problem = resp.status;
+        this.resp = resp;
+        if (this.resp.status) {
+          this.problem = this.resp.status;
         }
         else {
           this.discovering = true;
           this.end = false;
-          setTimeout(() => {
-            console.log('start')
-            this.discover();
-          }, 10000);
+          this.discover();
         }
       })
       .catch(err => {
@@ -68,14 +68,17 @@ export class DiscoverComponent implements OnInit {
     this.interval = setInterval(() => {
       this.data.fetchData().subscribe(
         data => {
-          console.log(data[0])
           if (data[0]) {
             this.fetchData = data[0];
+            if (this.fetchData.nTweetsAnalys < this.fetchData.nTweetsTotal) {
+              this.problemTweet = "Didn't found all the tweets you have requested"
+            }
             this.arrayTweets = data[0].tweetsInterest.concat(this.arrayTweets);
-          }
-          else {
             this.end = true;
             clearInterval(this.interval);
+          }
+          else {
+            this.problemTweet = "Didn't found any tweets about your topic, try something more popular"
           }
         }
       );

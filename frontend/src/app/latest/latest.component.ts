@@ -13,6 +13,8 @@ export class LatestComponent implements OnInit {
   filter = {
     language: localStorage.getItem('language') || 'en',
   };
+  
+  timeLeft;
 
   constructor(private data: BulliesService) { }
 
@@ -25,11 +27,15 @@ export class LatestComponent implements OnInit {
     );
 
     setInterval(() => {
-      this.data.getBullies(this.filter).subscribe(
-        data => {
-          this.bullies$ = data
-        }
-      );
-    },2500)
+      this.timeLeft = (7200 - (new Date().getTime()/1000) % 7200).toFixed(0);
+      if(this.timeLeft == 0){
+        this.data.getBullies(this.filter).subscribe(
+          data => {
+            this.bullies$ = data
+          }
+        );
+      }
+
+    },1000)
   }
 }
