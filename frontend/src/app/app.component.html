@@ -1,44 +1,17 @@
 <div class="container-fluid bar">
-  <!--<div class="row">
-    <div class="col text-center">
-      <!--<h1 class="text-center pt-2 titlefont"> {{title}} </h1>
-      <img src= "../assets/fotos/logo2.png">
+  <div class="row navbar">
+    <div class="col-5 text-left">
+        <a href="latest" class="btn mx-1"><i class="fa fa-hourglass-half rotate"></i> Latest </a>
+        <a href="twitter" class="btn mx-1 "><i class="fa fa-twitter rotate"></i> Twitter </a>
+        <a href="reddit" class="btn mx-1"><i class="fa fa-reddit-alien rotate"></i> Reddit </a>
+        <a href="discover" class="btn mx-1"><i class="fa fa-globe rotate"></i> Discover </a>
     </div>
-  </div>-->
-  <div class="row-12 navbar align-items-end">
-    
-    
-    <div class= "col-2 text-left row">
-      <div class= "col-10">
-        <img src= "../assets/fotos/logo2.png">
-      </div>
-      
+    <div class="col-2 text-center">
+      <img src="../assets/fotos/logo2.png" class='logo' alt="logo">
     </div>
-    <div class= "col-4 text-left slogan">
-        <p>Showing all the bullies who are tweeting at the moment</p>
-    </div>
-    <div class="col-6 text-right mb-2">
-      <a href="latest" class="btn mb-2 mx-1 "> 
-        <img src="https://img.icons8.com/material-sharp/48/000000/clock.png">
-        Latest </a>
-      <a href="twitter" class="btn mb-2 mx-1 "> 
-        <img src="https://img.icons8.com/android/64/000000/twitter.png">
-        Twitter </a>
-      <a href="reddit" class="btn mb-2 mx-1"> 
-        <img src="https://img.icons8.com/ios-glyphs/64/000000/reddit.png">
-        Reddit </a>
-      <a href="discover" class="btn mb-2 mx-1"> 
-        <img src="https://img.icons8.com/pastel-glyph/64/000000/earth-planet.png">
-        Discover </a>
-    
-      <!-- <a *ngIf="ln == 'es'"  (click)='english()' class="btn mb-2 mx-1"> English </a>
-      <a *ngIf="ln == 'en'" (click)='spanish()' class="btn mb-2 mx-1"> Español </a> -->
-      <a *ngIf='logged' href="latest" (click)='logout()' class="btn mb-2 mx-1"> 
-        <img src="https://img.icons8.com/ios/64/000000/shutdown.png">
-        Log Out </a>
-      <a href="about" class="btn mb-2 mx-1"> 
-        <img src="https://img.icons8.com/material/64/000000/about--v1.png">
-        About </a>
+    <div class="col-5 text-right">
+      <a *ngIf='logged' href="latest" (click)='logout()' class="btn mx-1"><i class="fa fa-sign-out"></i> Log Out </a>
+      <a href="about" class="btn mx-1"><i class="fa fa-info-circle"></i> About </a>
     </div>
   </div>
 </div>
