@@ -76,10 +76,11 @@ export class DiscoverComponent implements OnInit {
             }
             this.arrayTweets = data[0].tweetsInterest.concat(this.arrayTweets);
             this.end = true;
+            this.problemTweet = null;
             clearInterval(this.interval);
           }
           else {
-            this.problemTweet = "Didn't found any tweets about your topic, try something more popular"
+            this.problemTweet = "Didn't found any tweets about your topic"
           }
         }
       );
