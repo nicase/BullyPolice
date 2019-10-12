@@ -98,7 +98,7 @@ def manage_tweet(self, tweet):
         self.tweetsArray = []
         self.tweetsTextArray = []
     
-    if str(self.counter) == str(self.ntweets) or abs(self.initialTime - time.time()) > 10:
+    if str(self.counter) == str(self.ntweets) or abs(self.initialTime - time.time()) > 15:
 
         body = {
             "nTweetsTotal": self.ntweets,
