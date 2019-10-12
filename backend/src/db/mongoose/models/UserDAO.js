@@ -17,7 +17,8 @@ const userSchema = new Schema({
   },
   discover: {
     type: Number,
-    requires: true
+    requires: true,
+    default: 0,
   },
   role: {
     type: String,
