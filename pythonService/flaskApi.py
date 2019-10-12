@@ -14,6 +14,13 @@ def index():
     interested = data["interested"]
     print('Petició')
     newpid = os.fork()
+    
+    # Comprovem que no hem fet més de 35000 crides
+    file = open("numCrides", "r")
+    valor = int(file.read())
+    if valor >= 35000:
+        os.exit()
+    
     if newpid == 0:
         subprocess.run(["python3", "discovery.py", str(word), str(ntweets), str(interested)])
         os.exit()
