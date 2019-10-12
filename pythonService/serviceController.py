@@ -1,6 +1,7 @@
 import os
 import subprocess
 import time, datetime
+import requests
 
 def runReddit ():
     newpid = os.fork()
@@ -33,4 +34,7 @@ if __name__ == "__main__":
             os.waitpid(runTwitterEn(), 0)        
             # print("Run TwitterEs")
             # os.waitpid(runTwitterEs(), 0)        
-            time.sleep(60)
+        if now.hour == 1:
+            requests.get("http://159.65.92.238:3001/addDiscover")
+        time.sleep(60)
+            
