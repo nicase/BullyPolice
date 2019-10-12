@@ -1,6 +1,6 @@
 import os
 import subprocess
-import time
+import time, datetime
 
 def runReddit ():
     newpid = os.fork()
@@ -25,10 +25,12 @@ def runTwitterEs ():
 
 if __name__ == "__main__":
     while True:
-        print("Run Reddit")
-        os.waitpid(runReddit(), 0)        
-        print("Run TwitterEn")
-        os.waitpid(runTwitterEn(), 0)        
-        # print("Run TwitterEs")
-        # os.waitpid(runTwitterEs(), 0)        
-        time.sleep(3600)
+        now = datetime.datetime.now()
+        if now.hour%2 == 0 and now.minute == 0:
+            print("Run Reddit")
+            os.waitpid(runReddit(), 0)        
+            print("Run TwitterEn")
+            os.waitpid(runTwitterEn(), 0)        
+            # print("Run TwitterEs")
+            # os.waitpid(runTwitterEs(), 0)        
+            time.sleep(60)
