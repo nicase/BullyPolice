@@ -119,17 +119,9 @@ def manage_tweet(self, tweet):
 
         self.destroy_process()
       
-def handler():
-    
-    os.exit()
 
 if __name__ == '__main__':
     a = Amazon('en')
-
-    # Timmer
-    signal.signal(signal.SIGALRM, handler)
-    signal.alarm(10)
-
 
     # Autorització
     json_file = open("credentials.json", "r")
