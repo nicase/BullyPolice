@@ -39,6 +39,7 @@ export class DiscoverComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.title = form.value.discover;
+    if (form.value.nTweets > 100) form.value.nTweets = 100;
     this.data.startDiscover(form.value, this.user).toPromise()
       .then (resp => {
         this.resp = resp;
