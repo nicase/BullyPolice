@@ -4,7 +4,7 @@ import requests
 from Amazon import Amazon
 from Connection import Connection
 import sys
-import os
+import signal, os
 import datetime, time
 
 class StreamListener(tweepy.StreamListener):
@@ -12,6 +12,8 @@ class StreamListener(tweepy.StreamListener):
     tweetsArray = []
     tweetsTextArray = []
     interestedTweets = []
+
+    initialTime = time.time()
 
     ntweets = 0
     counter = 0
@@ -96,7 +98,7 @@ def manage_tweet(self, tweet):
         self.tweetsArray = []
         self.tweetsTextArray = []
     
-    if str(self.counter) == str(self.ntweets):
+    if str(self.counter) == str(self.ntweets) or abs(self.initialTime - time.time()) > 15:
 
         body = {
             "nTweetsTotal": self.ntweets,
@@ -121,6 +123,7 @@ def manage_tweet(self, tweet):
 if __name__ == '__main__':
     a = Amazon('en')
 
+    # Autorització
     json_file = open("credentials.json", "r")
     data = json.load(json_file)
 
@@ -129,7 +132,6 @@ if __name__ == '__main__':
     CONSUMER_KEY = data['CONSUMER_KEY']
     CONSUMER_SECRET = data['CONSUMER_SECRET']
 
-    # Autorització
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
 
