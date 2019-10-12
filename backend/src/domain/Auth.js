@@ -47,12 +47,12 @@ class Auth {
     const pswRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/;
 
     if (!password) {
-      if (this.password.length < 8 || !pswRegex.test(this.password)) {
+      if (this.password.length < 8) {
         throw new Error('BadPasswordError');
       }
       this.password = bcrypt.hashSync(this.password, 10);
     } else {
-      if (password.length < 8 || !pswRegex.test(password)) {
+      if (password.length < 8) {
         throw new Error('BadPasswordError');
       }
       this.password = bcrypt.hashSync(password, 10);
