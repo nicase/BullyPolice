@@ -1,13 +1,15 @@
-
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600i&display=swap');
 .bar {
   background-color: rgb(30, 97, 94);
   color: white;
 }
 .btn {
-  color: white;
+  color: black;
   background-color: #379683;
   border-radius: 0 !important;
   width: 120px;
+  height: 100px;
+  margin-bottom: 5%;
 }
 
 .btn:hover {
@@ -16,4 +18,21 @@
 
 .navbar {
   //margin-top: 35px;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+}
+
+img {
+  width: 60%;
+  height: auto;
+}
+
+.slogan {
+  color:black;
+  margin-bottom: 10px;
+  font-size: 30px;
+  font-family: 'Montserrat', sans-serif;
 }
