@@ -6,6 +6,7 @@ module.exports = [
   checkUserAuthenticated,
   // userIsAdmin,
   (req, res, next) => {
+    if (req.body.nTweets > 100) req.body.nTweets = 100;
     const startDiscover = req.container.resolve('StartDiscover');
     const {
       SUCCESS, ERROR, VALIDATION_ERROR, CONFLICT,
