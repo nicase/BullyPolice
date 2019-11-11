@@ -1,3 +1,5 @@
+online: bullypolice.pauescofet.com
+
 # Backend
 - nvm use
 - npm install
