@@ -1,12 +1,15 @@
-online: [bullypolice.pauescofet.com]
+Hate speech publications displayer, working now with twitter and reddit publications in english and spanish
 
-# Backend
+
+online: bullypolice.pauescofet.com
+
+# Backend (NodeJS)
 - nvm use
 - npm install
 - npm run fixtures
 - npm run dev
 
-# Frontend
+# Frontend (Angular)
 - nvm use
 - npm install
 - npm start
