@@ -1,4 +1,4 @@
-online: bullypolice.pauescofet.com
+online: [bullypolice.pauescofet.com]
 
 # Backend
 - nvm use
